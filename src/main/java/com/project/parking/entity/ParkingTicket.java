@@ -13,11 +13,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name = "parking_ticket")
+@Table(name = "t_parking_ticket")
 public class ParkingTicket {
     @Id
     private String id;
-    private String licancePlate;
+
+    @Column(name = "licence_plate", unique = true)
+    private String licencePlate;
 
     @ManyToOne
     @JoinColumn(name = "id_admin")

@@ -1,7 +1,9 @@
 package com.project.parking.controller;
 
+import com.project.parking.dto.request.NewAdminRequest;
 import com.project.parking.entity.Admin;
 import com.project.parking.repository.AdminRepository;
+import com.project.parking.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,25 +13,25 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("/api/admins")
 public class AdminController {
-    private final AdminRepository adminRepository;
+    private final AdminService adminService;
 
     @PostMapping
-    public Admin createNew(Admin admin){
-        return adminRepository.saveAndFlush(admin);
+    public Admin createNew(@RequestBody NewAdminRequest request){
+        return adminService.create(request);
     }
 
     @GetMapping("/{id}")
     public Admin getById(@PathVariable String id){
-        return adminRepository.findById(id);
+        return adminService.findById(id);
     }
 
     @GetMapping
     public List<Admin> getAll(){
-        return adminRepository.findAll();
+        return adminService.findAll();
     }
 
     @PutMapping
-    public Admin update(Admin admin) {
-        return adminRepository.update(admin);
+    public Admin update(@RequestBody Admin admin) {
+        return adminService.update(admin);
     }
 }

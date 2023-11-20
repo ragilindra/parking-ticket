@@ -1,7 +1,9 @@
 package com.project.parking.controller;
 
+import com.project.parking.dto.request.NewTypeVehicleRequest;
 import com.project.parking.entity.Type;
 import com.project.parking.repository.TypeRepository;
+import com.project.parking.service.TypeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,21 +13,21 @@ import java.util.List;
 @RequestMapping("/api/types")
 @RequiredArgsConstructor
 public class TypeController {
-    private final TypeRepository typeRepository;
+    private final TypeService typeService;
 
     @PostMapping
-    public Type createNew(Type type){
-        return typeRepository.saveAndFlush(type);
+    public Type createNew(NewTypeVehicleRequest request){
+        return typeService.createNew(request);
     }
 
     @GetMapping
     public List<Type> getAll(){
-        return typeRepository.findAll();
+        return typeService.getAll();
     }
 
     @PutMapping
     public Type update(Type type){
-        return typeRepository.update(type);
+        return typeService.update(type);
     }
 
 }
